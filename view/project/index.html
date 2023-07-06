@@ -19,12 +19,12 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
-                            <li class=""><a href="#">首页</a></li>
-                            <li><a href="{:url('Index/index')}">用户列表</a></li>
+                            <li class=""><a href="{:url('First/index')}">首页</a></li>
+                            <li><a href="{:url('User/index')}">用户列表</a></li>
                             <li><a href="{:url('index')}">项目列表</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="#">注销</a></li>
+                            <li><a href="{:url('Login/index')}">注销</a></li>
                         </ul>
                     </div>
                 </div>
@@ -34,7 +34,7 @@
     <!-- 内容 -->
     <div class="row">
         <div class="col-md-12 text-right">
-            <a href="{:url('')}" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>&nbsp;新建</a>
+            <a href="{:url('add')}" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>&nbsp;新建</a>
         </div>
         <div class="col-md-12">
             <table class="table table-hover">
@@ -47,35 +47,13 @@
                         <th scope="col">操作</th>
                     </tr>
                 </thead>
-                <tbody>
                     <tr>
-                        <th scope="row">1</th>
+                        <th scope="row">4</th>
                         <td>学生管理</td>
-                        <td>张三</td>
+                        <td>李四</td>
                         <td>私有的</td>
                         <td>
-                            <a href="{:url('')}" class="btn btn-info"><i class="glyphicon glyphicon-plus"></i>&nbsp;邀请</a>
-                            <a class="btn btn-sm btn-primary" href="{:url('Task/index')}"><i class="glyphicon glyphicon-pencil"></i>&nbsp;详情</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>学生管理</td>
-                        <td>张三</td>
-                        <td>公开的</td>
-                        <td>
-                            <a href="{:url('add')}" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i>&nbsp;加入</a>
-                            <a class="btn btn-sm btn-primary" href="{:url('Task/index')}"><i class="glyphicon glyphicon-pencil"></i>&nbsp;详情</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>学生管理</td>
-                        <td>张三</td>
-                        <td>公开的</td>
-                        <td>
-                            <a href="{:url('add')}" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i>&nbsp;加入</a>
-                            <a class="btn btn-sm btn-primary" href="{:url('Task/index')}"><i class="glyphicon glyphicon-pencil"></i>&nbsp;详情</a>
+                            <a href="{:url('Task/index')}" class="btn btn-info">&nbsp;查看</a>
                         </td>
                     </tr>
                     <tr>
@@ -84,18 +62,26 @@
                         <td>张三</td>
                         <td>私有的</td>
                         <td>
-                            <a href="{:url('')}" class="btn btn-info"><i class="glyphicon glyphicon-plus"></i>&nbsp;邀请</a>
-                            <a class="btn btn-sm btn-primary" href="{:url('Task/index')}"><i class="glyphicon glyphicon-pencil"></i>&nbsp;详情</a>
+                            <a href="{:url('Task/index')}" class="btn btn-info">&nbsp;查看</a>
+                            <a class="btn btn-sm btn-primary" href="{:url('index/invite')}">&nbsp;邀请他人</a>
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row">5</th>
+                        <th scope="row">2</th>
                         <td>学生管理</td>
-                        <td>张三</td>
+                        <td>周一</td>
                         <td>公开的</td>
                         <td>
-                            <a href="{:url('add')}" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i>&nbsp;加入</a>
-                            <a class="btn btn-sm btn-primary" href="{:url('Task/index')}"><i class="glyphicon glyphicon-pencil"></i>&nbsp;详情</a>
+                            <a class="btn btn-sm btn-success" href="{:url('tojoin')}">&nbsp;申请加入</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>学生管理</td>
+                        <td>周七</td>
+                        <td>公开的</td>
+                        <td>
+                            <a class="btn btn-sm btn-info" href="{:url('Task/index')}">&nbsp;查看</a>
                         </td>
                     </tr>
                 </tbody>

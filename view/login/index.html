@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+    <link rel="stylesheet" type="text/css" href="/thinkphp5/public/static/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+</head>
+<body class="container" >
+    <div class="row">
+        <div class="col-4 text-center">
+            <h1>项目管理</h1>
+        </div>
+    </div>
+    <div class="row" style="display: flex; justify-content: center; align-items: center;">
+        <div class="col-md-4">
+            <form action="{:url('login')}" method="POST">
+                <div class="form-group">
+                    <label for="username">用户名</label>
+                    <input type="text" class="form-control" id="username" placeholder="请输入用户名..."
+                           name="username">
+                </div>
+                <div class="form-group">
+                    <label for="password">密码</label>
+                    <input type="password" class="form-control" id="password" placeholder="请输入密码..."
+                           name="password">
+                </div>
+                <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" id="remeberPassword">
+                    <label class="form-check-label" for="remeberPassword">remeber me</label>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <a href="{:url('Index/add')}" class="btn btn-primary">&nbsp;注册</a>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <button type="submit" class="btn btn-primary">登录</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
