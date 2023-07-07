@@ -1,21 +1,14 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
+{extend name="index"}
+{block name="title"}
+    添加事件
+{/block}
 
-<head>
-    <meta charset="UTF-8">
-    <title>添加事件</title>
-    <link rel="stylesheet" type="text/css" href="/thinkphp5/public/static/bootstrap-3.3.5-dist/css/bootstrap.min.css">
-</head>
+{block name="nav"}
+{/block}
 
-<body class="container">
-    <div class="row">
-        <div class="col-md-12">
-        	<form>
-        		<input class="form-control" type="text" placeholder="please input here...">
-        		<button type="submit" class="btn btn-primary mb-2">提交</button>
-			</form>
-        </div>
-    </div>
-</body>
-
-</html>
+{block name="content"}
+    <form>
+        <input class="form-control" type="text" placeholder="please input here...">
+        <button type="submit" class="btn btn-primary mb-2">提交</button>
+    </form>
+{/block}

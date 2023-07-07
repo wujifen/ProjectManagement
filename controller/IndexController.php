@@ -1,21 +1,22 @@
 <?php 
 namespace app\project\controller;
-use think\Controller;
 use app\project\model\User;
 
 /**
- * 中间类
+ * 首页类
  * */
-class IndexController extends Controller
+class IndexController extends BaseController
 {
-    public function __construct()
+    public function index()
     {
-        // 调用父类的构造器
-        parent::__construct();
+        // 获取当前登录者的id
+        $id = session('userId');
 
-        // 判断是否已登录
-        if (!User::isLogin()) {
-            return $this->error('未登录', url('Login/index'));
-        }
+        // 获取当前登录的user用户
+        $user = User::get($id);
+
+        $this->assign('user', $user);
+        
+        return $this->fetch();
     }
 }

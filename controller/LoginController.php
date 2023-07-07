@@ -33,7 +33,7 @@ class LoginController extends Controller
      * */
     public function login()
     {
-        // 接收提交的数据
+        // 接收登录提交的数据
         $username = input('post.username');
         $password = input('post.password');
 
@@ -41,6 +41,6 @@ class LoginController extends Controller
         if (!User::login($username, $password)) {
             return $this->error('密码或用户名不正确', url('index'));
         } 
-        return $this->success('登录成功', url('first/index'));
+        return $this->success('登录成功', url('index/index'));
     }
 }

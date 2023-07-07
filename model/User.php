@@ -3,14 +3,19 @@ namespace app\project\model;
 use think\Model; 
 
 /**
- * 用户
+ * 用户类
  * */
 class User extends Model
 {
+    /**
+     * 注销
+     * @return true成功，false失败
+     * */
     static public function logOut()
     {
         // 销毁session中的数据
         session('userId', null);
+
         return true;
     }
 
@@ -27,11 +32,10 @@ class User extends Model
 
         if (!is_null($user)) {
             session('userId', $user->id);
-
             if ($user->checkPassword($password)) {
                 return true;
             }
-        } 
+        }
         return false;
     }
 
@@ -53,8 +57,7 @@ class User extends Model
     {
         if ($this->getData('password') === $password) {
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 }

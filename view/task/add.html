@@ -1,64 +1,57 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
+{extend name="index"}
+{block name="title"}
+    添加任务
+{/block}
 
-<head>
-    <meta charset="UTF-8">
-    <title>添加用户</title>
-    <link rel="stylesheet" type="text/css" href="/thinkphp5/public/static/bootstrap-3.3.5-dist/css/bootstrap.min.css">
-</head>
+{block name="nav"}
+{/block}
 
-<body class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <form action="Index/index" method="post">
-                <div class="form-group">
-                    <label for="title">标题</label>
-                    <input type="text" class="form-control" id="title" aria-describedby="title">
-                </div>
-                <div class="form-group">
-                    <label for="leaduser">负责人</label>
-                    <select class="custom-select custom-select-lg mb-8">
-                        <option selected>请选择负责人</option>
-                        <option value="1">张三</option>
-                        <option value="2">李四</option>
-                        <option value="3">王五</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="startime">开始时间</label>
-                    <input type="date" id="date" name="date">
-                </div>
-                <div class="form-group">
-                    <label for="endtime">结束时间</label>
-                    <input type="date" id="date" name="date">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">状态</label>
-                    <div class="row">
-                        <div class="col-md-1 ">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="status" id="status0" value="0">
-                                <label class="form-check-label" for="status">未开始</label>
-                            </div>
-                        </div>
-                        <div class="col-md-1">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="status" id="status1" value="1">
-                                <label class="form-check-label" for="status">进行中</label>
-                            </div>
-                        </div>
-                        <div class="col-md-1">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="status" id="status2" value="2">
-                                <label class="form-check-label" for="status">已完成</label>
-                            </div>
-                        </div>
-                    </div>    
-                </div> 
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+{block name="content"}
+    <form action="Index/index" method="post">
+        <div class="form-group">
+            <label for="title">标题</label>
+            <input type="text" class="form-control" id="title" aria-describedby="title">
         </div>
-    </div>
-</body>
-
-</html>
+        <div class="form-group">
+            <label for="leaduser">负责人</label>
+            <select class="custom-select custom-select-lg mb-8">
+                <option selected>请选择负责人</option>
+                <option value="1">张三</option>
+                <option value="2">李四</option>
+                <option value="3">王五</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="startime">开始时间</label>
+            <input type="date" id="date" name="date">
+        </div>
+        <div class="form-group">
+            <label for="endtime">结束时间</label>
+            <input type="date" id="date" name="date">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">状态</label>
+            <div class="row">
+                <div class="col-md-1 ">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="status" id="status0" value="0">
+                        <label class="form-check-label" for="status">未开始</label>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="status" id="status1" value="1">
+                        <label class="form-check-label" for="status">进行中</label>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="status" id="status2" value="2">
+                        <label class="form-check-label" for="status">已完成</label>
+                    </div>
+                </div>
+            </div>    
+        </div> 
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+{/block}

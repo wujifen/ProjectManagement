@@ -3,7 +3,7 @@ namespace app\project\validate;
 use think\Validate;
 
 /**
- * 验证类
+ * 用户验证类
  * */
 class User extends Validate 
 {

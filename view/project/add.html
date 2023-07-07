@@ -1,40 +1,33 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
+{extend name="index"}
+{block name="title"}
+    新建项目
+{/block}
 
-<head>
-    <meta charset="UTF-8">
-    <title>新建项目</title>
-    <link rel="stylesheet" type="text/css" href="/thinkphp5/public/static/bootstrap-3.3.5-dist/css/bootstrap.min.css">
-</head>
+{block name="nav"}
+{/block}
 
-<body class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <form action="Index/index" method="post">
-                <div class="form-group">
-                    <label for="projectname">项目名称</label>
-                    <input type="text" class="form-control" id="name" aria-describedby="name">
-                </div>
-                    <label for="exampleInputPassword1">类型</label>
-                    <div class="row">
-                        <div class="col-md-1 ">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="type" id="type0" value="0">
-                                <label class="form-check-label" for="type">公开的</label>
-                            </div>
-                        </div>
-                        <div class="col-md-1">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="type" id="type1" value="1">
-                                <label class="form-check-label" for="type">私有的</label>
-                            </div>
-                        </div>
-                    </div>    
-                </div> 
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+{block name="content"}
+    <form action="{:url('save')}" method="post">
+        <div class="form-group">
+            <label for="name">项目名称</label>
+            <input type="text" class="form-control" id="name" aria-describedby="name" name="name">
         </div>
-    </div>
-</body>
-
-</html>
+            <label for="exampleInputPassword1">类型</label>
+            <div class="row">
+                <div class="col-md-1 ">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="type" id="type0" value="0">
+                        <label class="form-check-label" for="type">公开的</label>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="type" id="type1" value="1">
+                        <label class="form-check-label" for="type">私有的</label>
+                    </div>
+                </div>
+            </div>    
+        </div> 
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+{/block}

@@ -7,7 +7,7 @@ use think\Validate;
 /**
  *用户类 
  * */
-class UserController extends IndexController
+class UserController extends BaseController
 {   
     
     /**
@@ -46,7 +46,6 @@ class UserController extends IndexController
         // 反馈结果
         return $this->success('添加成功', url('index'));
     }
-
 
     /**
      * 编辑界面
@@ -181,8 +180,11 @@ class UserController extends IndexController
      * */
     public function reset()
     {
+        // 接收pathinfo里的Id
         $id = input('param.id/d');
+
         $this->assign('id', $id);
+        
         return $this->fetch();
     }
 
