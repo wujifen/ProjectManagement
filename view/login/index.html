@@ -1,11 +1,12 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-    <meta charset="UTF-8">
-    <title>login</title>
-    <link rel="stylesheet" type="text/css" href="/thinkphp5/public/static/bootstrap-3.3.5-dist/css/bootstrap.min.css">
-</head>
-<body class="container" >
+{extend name='index'}
+{block name='title'} 
+    登录
+{/block}
+
+{block name='nav'}
+{/block}
+
+{block name='content'}
     <div class="row">
         <div class="col-4 text-center">
             <h1>项目管理</h1>
@@ -30,7 +31,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <a href="{:url('Index/add')}" class="btn btn-primary">&nbsp;注册</a>
+                        <a href="{:url('user/add')}" class="btn btn-primary">&nbsp;注册</a>
                     </div>
                     <div class="col-md-6 text-right">
                         <button type="submit" class="btn btn-primary">登录</button>
@@ -39,5 +40,4 @@
             </form>
         </div>
     </div>
-</body>
-</html>
+{/block}

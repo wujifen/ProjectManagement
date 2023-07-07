@@ -3,23 +3,34 @@ namespace app\project\controller;
 use think\Controller;
 use app\project\model\User;
 
+/**
+ * 登录类
+ * */
 class LoginController extends Controller
-{
+{   
+    /**
+     * 登录界面
+     * */
     public function index()
     {
         return $this->fetch();
     }
 
-    // 注销
+    /**
+     * 注销
+     * */
     public function logOut() 
     {
-        if(User::logOut()) {
-            return $this->success('logOut success', url('index'));
+        if (User::logOut()) {
+            return $this->success('注销成功', url('index'));
         } else {
-            return $this->error('logOut error', url('index'));
+            return $this->error('注销失败', url('index'));
         }
     }
 
+    /**
+     * 登录
+     * */
     public function login()
     {
         // 接收提交的数据
@@ -28,8 +39,8 @@ class LoginController extends Controller
 
         // 判断密码是否正确
         if (!User::login($username, $password)) {
-            return $this->error('username or password incorrect', url('index'));
+            return $this->error('密码或用户名不正确', url('index'));
         } 
-        return $this->success('login success', url('first/index'));
+        return $this->success('登录成功', url('first/index'));
     }
 }

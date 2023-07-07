@@ -1,0 +1,20 @@
+{extend name='index'}
+{block name='title'} 
+    重置密码
+{/block}
+
+{block name='nav'}
+{/block}
+
+{block name='content'}
+    <form action="{:url('savePassword')}" method="post">
+        <label for="password">新密码：</label>
+        <input type="hidden" name="id" value="{:$id}" />
+        <input type="password" id="password" name="password" required><br><br>
+
+        <label for="confirmPassword">确认新密码：</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" required><br><br>
+
+        <input type="submit" value="重置密码">
+    </form>
+{/block}

@@ -4,19 +4,35 @@ use app\project\model\User;
 use think\Request;
 use think\Validate;
 
+/**
+ *用户类 
+ * */
 class UserController extends IndexController
 {   
-    // index->add->save->index
+    
+    /**
+     * 登录界面
+     * */
     public function add()
     {
-        return $this->fetch();
+        $user = new User();
+        $user->id = 0;
+        $user->name = '';
+        $user->username = '';
+        $user->password = '';
+        $user->sex = 0;
+
+        $this->assign('user', $user);
+        return $this->fetch('edit');
     }
+
+    /**
+     * 保存add提交的数据
+     * */
     public function save()
     {
         // 实例化User对象并赋值
         $user = new User();
-
-        // 为对象赋值
         $user->name = input('post.name');
         $user->username = input('post.username');
         $user->password = input('post.password');
@@ -32,14 +48,24 @@ class UserController extends IndexController
     }
 
 
-    // index->edit->updateo->index
+    /**
+     * 编辑界面
+     * */
     public function edit()
     {
         // 从Pathinfo获取需要修改的用户的Id
         $id = input('param.id/d');
 
+        if (is_null($id)) {
+            return $this->error('未获取到Id', url('index'));
+        }
+
         // 获取要修改的User对象-
         $user = User::get($id);
+
+        if (is_null($user)) {
+            return $this->error('未获取到用户', url('index'));
+        }
 
         // 将对象传给V层
         $this->assign('user', $user);
@@ -48,6 +74,9 @@ class UserController extends IndexController
         return $this->fetch();
     }
 
+    /**
+     * 保存edit提交的数据
+     * */
     public function update() 
     {
         // 获取要更新的关键字信息
@@ -65,8 +94,6 @@ class UserController extends IndexController
 
         // 写入新的数据
         $user->name = input('post.name');
-        $user->username = input('post.username');
-        $user->password = input('post.password');
         $user->sex = input('post.sex/d');
 
         // 更新反馈结果
@@ -76,7 +103,9 @@ class UserController extends IndexController
         return $this->success('更新成功', url('index'));
     }
 
-
+    /**
+     * 删除用户
+     * */
      public function delete()
     {
         // 从pathinfo 获取id 
@@ -102,7 +131,9 @@ class UserController extends IndexController
         return $this->success('删除成功', url('index'));
     }
 
-    // index->index
+    /**
+     * 用户列表
+     * */
     public function index()
     {
         // 获取查询信息
@@ -127,20 +158,62 @@ class UserController extends IndexController
         // 条件查询并调用分页
         $users = $user->paginate($pageSize, false, ['query'=> ['name' =>$name,'username' => $username]]);
 
-        // 向V层传数据
-        $this->assign('users', $users);
+        $userId = session('userId');
 
-        // 取回打包后的数据
-        $htmls = $this->fetch();
+        // 向V层传数据
+        $this->assign('userId', $userId);
+        $this->assign('users', $users);
 
         // 将数据返还给用户
         return $this->fetch();
     }
 
+    /**
+     * 邀请用户参入私有项目
+     * */
     public function invite()
     {
         return $this->fetch();
     }
 
-    
+    /**
+     * 重置密码
+     * */
+    public function reset()
+    {
+        $id = input('param.id/d');
+        $this->assign('id', $id);
+        return $this->fetch();
+    }
+
+    /**
+     * 保存密码
+     * */
+    public function savePassword()
+    {   
+        // 获取Id
+       $id = input('post.id/d');
+       if (is_null($id)) {
+        return $this->error('失败，为获取到Id', url('index'));
+       }
+
+       // 获取新密码
+       $confirmPassword = input('post.confirmPassword');
+        if (is_null($confirmPassword)) {
+        return $this->error('失败，为获取到新密码', url('index'));
+       }
+
+       // 获取重置密码的用户
+       $user = User::get($id);
+       if (is_null($user)) {
+            return $this->error('失败，为获取到用户', url('index'));
+       }
+
+       // 将新密码存入数据库
+       $user->password = $confirmPassword;
+        if (!$user->validate()->save()) {
+            return $this->error('失败' . $this->getError(), url('index'));
+        }
+       return $this->success('重置密码成功', url('index'));
+    }
 }

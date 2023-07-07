@@ -1,6 +1,9 @@
 <?php 
 namespace app\project\controller;
 
+/**
+ * 项目类
+ * */
 class ProjectController extends IndexController
 {
     public function index()

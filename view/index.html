@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{block name="title"}标题{/block}</title>
+    <link rel="stylesheet" type="text/css" href="/thinkphp5/public/static/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+</head>
+
+<body class="container">
+{block name="nav"}
+    <div class="row">
+        <div class="col-md-12">
+            <nav class="navbar navbar-default" role="navigation" style="background-color: #e3f2fd;">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" >项目管理系统</a>
+                    </div>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li class=""><a href="{:url('First/index')}">首页</a></li>
+                            <li><a href="{:url('User/index')}">用户列表</a></li>
+                            <li><a href="{:url('Project/index')}">项目列表</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="{:url('Login/index')}">注销</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+ {/block}   
+    <div class="row">
+        <div class="col-md-12">
+            {block name="search"}
+            {/block}
+            {block name="content"}
+            {/block}
+            {block name="page"}
+            {/block}
+        </div>
+    </div>
+</body>
+
+</html>

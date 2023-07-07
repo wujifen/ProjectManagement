@@ -1,52 +1,50 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
+{extend name='index'}
+{block name='title'}
+    {eq name="user->id" value=""}注册用户{else /}编辑用户{/eq}
+{/block}
 
-<head>
-    <meta charset="UTF-8">
-    <title>添加用户</title>
-    <link rel="stylesheet" type="text/css" href="/thinkphp5/public/static/bootstrap-3.3.5-dist/css/bootstrap.min.css">
-</head>
+{block name='nav'}
+{/block}
 
-<body class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <form action="{:url('update')}" method="post">
-                <input type="hidden" name="id" value="{:$user->getData('id')}" />
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" class="form-control" id="name" aria-describedby="name" name="name" value="{:$user->getData('name')}">
-                </div>
-                <div class="form-group">
-                    <label for="username">UserName</label>
-                    <input type="text" class="form-control" id="username" aria-describedby="username"  name="username" value="{:$user->getData('username')}">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" name="password" value="{:$user->getData('password')}">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">sex</label>
-                    <div class="row">
-                        <div class="col-md-1 ">
-                            <div class="form-check">
-                            <input class="form-check-input" type="radio" name="sex" id="sex0" value="0"
-                            {eq name="user->getData('sex')" value="0"} checked="checked" {/eq}>
-                            <label class="form-check-label" for="sex0">男</label>
-                            </div>
-                        </div>
-                        <div class="col-md-1">
-                            <div class="form-check">
-                            <input class="form-check-input" type="radio" name="sex" id="sex1" value="1" {eq name="user->getData('sex')" value="1"} checked="checked" {/eq}>
-                            <label class="form-check-label" for="sex1">女</label>
-                            </div>
-                        </div>
-                    </div>    
-                </div> 
-                <hr>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+{block name='content'}
+    {php} $action = request()->action() === 'add' ? 'save' : 'update'{/php}
+    <form action="{:url($action)}" method="post">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="hidden" name="id" value="{:$user->getData('id')}" />
+            <input type="text" class="form-control" id="name" aria-describedby="name" name="name" value="{:$user->getData('name')}">
         </div>
-    </div>
-</body>
-
-</html>
+        <div class="form-group">
+            <label for="username">UserName</label>
+            <input type="text" class="form-control" id="username" aria-describedby="username"  name="username" value="{:$user->getData('username')}" {eq name="user->id" value=""}{else /}disabled{/eq}>
+            
+        </div>
+        <div class="form-group">
+            {eq name="user->id" value=""}
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" name="password" value="{:$user->getData('password')}">
+            {else /}{/eq}
+            
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">sex</label>
+            <div class="row">
+                <div class="col-md-1 ">
+                    <div class="form-check">
+                    <input class="form-check-input" type="radio" name="sex" id="sex0" value="0"
+                    {eq name="user->getData('sex')" value="0"} checked="checked" {/eq}>
+                    <label class="form-check-label" for="sex0">男</label>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-check">
+                    <input class="form-check-input" type="radio" name="sex" id="sex1" value="1" {eq name="user->getData('sex')" value="1"} checked="checked" {/eq}>
+                    <label class="form-check-label" for="sex1">女</label>
+                    </div>
+                </div>
+            </div>    
+        </div> 
+        <hr>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+{/block}

@@ -2,9 +2,12 @@
 namespace app\project\model;
 use think\Model; 
 
+/**
+ * 用户
+ * */
 class User extends Model
 {
-     static public function logOut()
+    static public function logOut()
     {
         // 销毁session中的数据
         session('userId', null);
@@ -25,7 +28,7 @@ class User extends Model
         if (!is_null($user)) {
             session('userId', $user->id);
 
-            if ($user->password === $password) {
+            if ($user->checkPassword($password)) {
                 return true;
             }
         } 
@@ -40,6 +43,7 @@ class User extends Model
         }
         return false;
     }
+
     /**
      *  验证密码是否正确
      *  @param string $password
@@ -47,23 +51,10 @@ class User extends Model
      * **/
     public function checkPassword($password) 
     {
-        if ($this->getData('password') === $this::encryptPassword($password)) {
+        if ($this->getData('password') === $password) {
             return true;
         } else {
             return false;
         }
-    }
-
-    /**
-     * 对密码进行加密
-     * @param password
-     * @return string 加密后的密码
-     * */
-    static public function encryptPassword($password)
-    {   
-        if (!is_string($password)) {
-            return $this->error("传入变量类型错误", url('login/index'));
-        }
-        return sha1(md5($password) . 'mengyunzhi');
     }
 }
