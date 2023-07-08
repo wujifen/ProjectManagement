@@ -34,7 +34,7 @@
                         <th scope="row">{$key}</th>
                         <td>{$_user->name}</td>
                         <td>{$_user->username}</td>
-                        <td>{eq name="_user->sex" value="0"}男{else /}女{/eq}</td>
+                        <td>{$_user->sex}</td>
                         <td>
                             {eq name="$_user->id" value="$userId"}
                             <a href="{:url('edit?id=' . $_user->id)}" class="btn btn-primary">&nbsp;编辑</a>
@@ -57,5 +57,3 @@
         </div>
     </div>
 {/block}
-
-</html>

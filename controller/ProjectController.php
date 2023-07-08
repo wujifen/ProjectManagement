@@ -11,19 +11,22 @@ class ProjectController extends BaseController
 {
     public function index()
     {  
+        // 获取当前登录用户的Id
+        $id = session('userId');
+        $this->assign('user', User::get($id));
 
-        // 调用所有项目
-        $projects = Project::all();
+        // 查询出当前登录用户可见的项目Id
+        $projectIds = User::query($id);
 
-        // 遍历projects判断项目是公开还是私有
-        foreach ($projects as $project) {
-            if ($project->type === 1) {
-                
-            }
+        $array = array();
+        foreach ($projectIds as $value) {
+            $projectId = $value;
+            $project = Project::get($projectId);
+            $array[] = $project;
         }
-        
+       
         // 向V层传值
-        $this->assign('projects', $projects);
+        $this->assign('projects', $array);
         
         // 向数据返回给用户
         return $this->fetch();
@@ -38,6 +41,8 @@ class ProjectController extends BaseController
     {
         return $this->success('你已成功加入', url('task/index'));
     }
+       
+
 
     /**
      * 保存新增加的项目
@@ -49,9 +54,7 @@ class ProjectController extends BaseController
         $type = Input('post.type/d');   
 
         // 获取当前登录的对象的ID
-        $userId = session('userId');
-        $user = User::get($userId);
-        $id = $user->id;
+        $id = session('userId');
 
         // 实例化对象project并赋值
         $project = new Project();
@@ -65,15 +68,15 @@ class ProjectController extends BaseController
         }
 
         // 实例化对象project_user并赋值
-        $project_user = new ProjectUser();
-        $project_user->user_id = $id;
-        $project_user->project_id = $project->id; 
+        $projectUsers = new ProjectUser();
+        $projectUsers->user_id = $id;
+        $projectUsers->project_id = $project->id; 
 
         // 将project_user传入V层
-        $this->assign('users', $project_user);
+        $this->assign('projectUsers', $projectUsers);
 
         // 反馈结果
-        if (!$project_user->validate()->save()) {
+        if (!$projectUsers->validate()->save()) {
             return $this->error('新建项目失败' . $this->getError(), url('index'));
         }
         return $this->success('新建项目成功', url('index'));

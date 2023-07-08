@@ -26,15 +26,23 @@
                         <tr>
                             <th scope="row">{$key}</th>
                             <td>{$_project->name}</td>
-                            <td>{php}
-                                    $users = $_project->users;
-                                    foreach($users as $user) echo $user->name;
-                                {/php}
-                            </td>
-                            <td>{eq name="$_project->type" value="0"}公开的{else /}私有的{/eq}</td>
+                            <td>{$_project->User->name}</td>
+                            <td>{$_project->type}</td>
                             <td>
-                                <a href="{:url('Task/index')}" class="btn btn-info">&nbsp;查看</a>
-                                <a class="btn btn-sm btn-success" href="{:url('tojoin')}">&nbsp;申请加入</a>
+                                {if $_project->getData('type') === 0}
+                                    {if $_project->getIsJoin($user)}
+                                        <a class="btn btn-sm btn-info" href="{:url('Task/index')}">&nbsp;查看</a>
+                                    {else}
+                                        <a class="btn btn-sm btn-success" href="{:url('tojoin')}">&nbsp;申请加入</a>
+                                    {/if}
+                                {else $_project->getData('type') === 1}
+                                    {if $_project->getIsJoin($user)}
+                                        <a class="btn btn-sm btn-info" href="{:url('Task/index')}">&nbsp;查看</a>
+                                    {else}
+                                        <a class="btn btn-sm btn-info" href="{:url('Task/index')}">&nbsp;查看</a>
+                                        <a href="{:url('user/invite')}" class="btn btn-info">&nbsp;邀请他人</a>
+                                    {/if}
+                                {/if}
                             </td>   
                         </tr>
                     {/volist}
