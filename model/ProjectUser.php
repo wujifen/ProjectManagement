@@ -7,5 +7,5 @@ use think\Model;
  * */
  class ProjectUser extends Model
  {
-
+    
  }

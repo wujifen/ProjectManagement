@@ -3,38 +3,17 @@
     任务列表
 {/block}
 
-{block name="nav"}
-    <nav class="navbar navbar-default" role="navigation" style="background-color: #e3f2fd;">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" >项目管理系统</a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li class=""><a href="{:url('Index/index')}">首页</a></li>
-                    <li><a href="{:url('User/index')}">用户列表</a></li>
-                    <li><a href="{:url('Project/index')}">项目列表</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{:url('Login/logout')}">注销</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-{/block}
-
 {block name="content"}
     <div class="row">
         <div class="col-md-8">
             <form class="form-inline">
                 <div class="form-group">
                     <label class="sr-only" for="title">标题</label>
-                    <input name="title" type="text" class="form-control" placeholder="标题..." value="">
+                    <input name="title" type="text" class="form-control" placeholder="标题..." value="{:input('title')}">
                 </div>
                 <div class="form-group">
                     <label class="sr-only" for="status">状态</label>
-                    <input name="status" type="text" class="form-control" placeholder="状态..." value="">
+                    <input name="status" type="text" class="form-control" placeholder="状态..." value="{:input('status')}">
                 </div>
                 <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i>&nbsp;查询</button>
             </form>
@@ -59,46 +38,21 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {volist name="tasks" id="_task" key="key"}
                     <tr>
-                        <th scope="row">1</th>
-                        <td>学习php</td>
-                        <td>张三</td>
-                        <td>2023年7月4日</td>
-                        <td>2023年8月8日</td>
-                        <td>进行中</td>
-                        <td>
-                            <a href="{:url('detail')}" class="btn btn-primary">&nbsp;详情</a>
-                            <a href="{:url('edit')}" class="btn btn-primary">&nbsp;更改</a>
-                            <a href="{:url('event')}" class="btn btn-primary">&nbsp;添加事件</a>
-                        </td>
-                        
-                    </tr>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>学习php</td>
-                        <td>张三</td>
-                        <td>2023年7月4日</td>
-                        <td>2023年8月8日</td>
-                        <td>进行中</td>
+                        <th scope="row">{$key}</th>
+                        <td>{$_task->name}</td>
+                        <td>{$_task->Task->name}</td>
+                        <td>{$_task->start_date}</td>
+                        <td>{$_task->end_date}</td>
+                        <td>{$_task->status}</td>
                         <td>
                             <a href="{:url('detail')}" class="btn btn-primary">&nbsp;详情</a>
                             <a href="{:url('edit')}" class="btn btn-primary">&nbsp;更改</a>
                             <a href="{:url('event')}" class="btn btn-primary">&nbsp;添加事件</a>
                         </td>
                     </tr>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>学习php</td>
-                        <td>张三</td>
-                        <td>2023年7月4日</td>
-                        <td>2023年8月8日</td>
-                        <td>进行中</td>
-                        <td>
-                            <a href="{:url('detail')}" class="btn btn-primary">&nbsp;详情</a>
-                            <a href="{:url('edit')}" class="btn btn-primary">&nbsp;更改</a>
-                            <a href="{:url('event')}" class="btn btn-primary">&nbsp;添加事件</a>
-                        </td>
-                    </tr>
+                    {/volist}
                 </tbody>
             </table>
         </div>
@@ -106,5 +60,9 @@
 {/block}
 
 {block name="page"}
-
+    <div class="row">
+        <div class="col-md-12 text-center">
+            {$tasks->render()}
+        </div>
+    </div>
 {/block}
