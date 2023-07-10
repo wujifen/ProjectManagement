@@ -30,18 +30,18 @@
                             <td>{$_project->type}</td>
                             <td>
                                 {if $_project->getData('type') === 0}
-                                    {if $_project->getIsJoin($user)}
-                                        <a class="btn btn-sm btn-info" href="{:url('Task/index')}">&nbsp;查看</a>
+                                    {if $_project->getIsJoin($user) || $_project->user_id === $user->id}
+                                        <a class="btn btn-sm btn-info" href="{:url('Task/index?id=' . $_project->id)}">&nbsp;查看</a>
                                     {else}
-                                        <a class="btn btn-sm btn-success" href="{:url('tojoin')}">&nbsp;申请加入</a>
-                                    {/if}
+                                        <a class="btn btn-sm btn-success" href="{:url('tojoin?id=' . $_project->id)}">&nbsp;申请加入</a>
+                                   {/if}
                                 {else $_project->getData('type') === 1}
-                                    {if $_project->getIsJoin($user)}
-                                        <a class="btn btn-sm btn-info" href="{:url('Task/index')}">&nbsp;查看</a>
-                                    {else}
-                                        <a class="btn btn-sm btn-info" href="{:url('Task/index')}">&nbsp;查看</a>
-                                        <a href="{:url('user/invite')}" class="btn btn-info">&nbsp;邀请他人</a>
-                                    {/if}
+                                    {eq name="$_project->user_id" value="$user->id"}
+                                        <a class="btn btn-sm btn-info" href="{:url('Task/index?id=' . $_project->id)}">&nbsp;查看</a>
+                                        <a href="{:url('invite?id=' . $_project->id)}" class="btn btn-info">&nbsp;邀请他人</a>
+                                    {else /}
+                                        <a class="btn btn-sm btn-info" href="{:url('Task/index?id=' . $_project->id)}">&nbsp;查看</a>
+                                    {/eq}
                                 {/if}
                             </td>   
                         </tr>
@@ -50,7 +50,6 @@
             </table>
         </div>
     </div>
-
 {/block}
 
 {block name='page'}

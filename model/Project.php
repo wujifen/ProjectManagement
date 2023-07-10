@@ -39,7 +39,7 @@ class Project extends Model
     }
 
     /**
-     * 判断登录人是否加入了该项目
+     * 判断用户是否加入了该项目
      * */
     public function getIsJoin(User &$user)
     {
@@ -55,5 +55,13 @@ class Project extends Model
             return true;
         } 
         return false;
+    }
+
+    /**
+     * 项目和任务的1对多关系
+     * */
+    public function tasks()
+    {
+        return $this->hasMany('Task');
     }
 }

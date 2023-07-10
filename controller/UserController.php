@@ -135,27 +135,7 @@ class UserController extends BaseController
      * */
     public function index()
     {
-        // 获取查询信息
-        $name = Request::instance()->get('name');
-        $username = Request::instance()->get('username');
-
-        // 设置每页大小
-        $pageSize = 5;
-
-        // 实例化User
-        $user = new User();
-
-        // 定制查询信息
-        if (!empty($name)) {
-            $user->where('name','like','%' . $name . '%');
-        }
-
-        if (!empty($username)) {
-            $user->where('username', 'like', '%' . $username . '%');
-        }
-
-        // 条件查询并调用分页
-        $users = $user->paginate($pageSize, false, ['query'=> ['name' =>$name,'username' => $username]]);
+        $users = User::indexlist();
 
         $userId = session('userId');
 
@@ -164,41 +144,6 @@ class UserController extends BaseController
         $this->assign('users', $users);
 
         // 将数据返还给用户
-        return $this->fetch();
-    }
-
-    /**
-     * 邀请用户参入私有项目
-     * */
-    public function invite()
-    {
-        // 获取查询信息
-        $name = Request::instance()->get('name');
-        $username = Request::instance()->get('username');
-
-        // 设置每页大小
-        $pageSize = 5;
-
-        // 实例化User
-        $user = new User();
-
-        // 定制查询信息
-        if (!empty($name)) {
-            $user->where('name','like','%' . $name . '%');
-        }
-
-        if (!empty($username)) {
-            $user->where('username', 'like', '%' . $username . '%');
-        }
-
-        // 条件查询并调用分页
-        $users = $user->paginate($pageSize, false, ['query'=> ['name' =>$name,'username' => $username]]);
-
-        $userId = session('userId');
-
-        // 向V层传数据
-        $this->assign('userId', $userId);
-        $this->assign('users', $users);
         return $this->fetch();
     }
 

@@ -27,4 +27,19 @@ class Task extends Model
     {
         return $this->belongsTo('User');
     }
+
+    static public function getSeachAttr($value)
+    {
+        $status = ['未开始'=>0,'进行中'=>1,'已完成'=>2];
+        if (isset($status[$value])) {
+            return $status[$value];
+        } else {
+            return false;
+        }
+    }
+
+    public function details()
+    {
+        return $this->belongsTo('Detail');
+    }
 }

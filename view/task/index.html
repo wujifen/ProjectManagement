@@ -19,7 +19,7 @@
             </form>
         </div>
         <div class="col-md-4 text-right">
-            <a href="{:url('add')}" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>&nbsp;新增任务</a>
+            <a href="{:url('add?id=' . $id)}" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>&nbsp;新增任务</a>
         </div>
     </div>
 
@@ -47,9 +47,9 @@
                         <td>{$_task->end_date}</td>
                         <td>{$_task->status}</td>
                         <td>
-                            <a href="{:url('detail')}" class="btn btn-primary">&nbsp;详情</a>
-                            <a href="{:url('edit')}" class="btn btn-primary">&nbsp;更改</a>
-                            <a href="{:url('event')}" class="btn btn-primary">&nbsp;添加事件</a>
+                            <a href="{:url('detail?taskid=' . $_task->id)}" class="btn btn-primary">&nbsp;详情</a>
+                            <a href="{:url('edit?id=' . $id  . '?taskId=' . $_task->id)}" class="btn btn-primary">&nbsp;更改</a>
+                            <a href="{:url('event?taskid=' . $_task->id)}" class="btn btn-primary">&nbsp;添加事件</a>
                         </td>
                     </tr>
                     {/volist}
@@ -62,7 +62,7 @@
 {block name="page"}
     <div class="row">
         <div class="col-md-12 text-center">
-            {$tasks->render()}
+
         </div>
     </div>
 {/block}

@@ -7,46 +7,48 @@
 {/block}
 
 {block name="content"}
-    <form action="Index/index" method="post">
+{php} $action = request()->action() === 'add' ? 'save' : 'update'{/php}
+    <form action="{:url($action . '?id=' . $project->id . '?taskid=' . $task->id)}" method="post">
         <div class="form-group">
+            <input type="hidden" name="id">
             <label for="title">标题</label>
-            <input type="text" class="form-control" id="title" aria-describedby="title">
+            <input type="text" class="form-control" id="title" aria-describedby="title" name="name" value="{$task->name}">
         </div>
         <div class="form-group">
             <label for="leaduser">负责人</label>
-            <select class="custom-select custom-select-lg mb-8">
+            <select class="custom-select custom-select-lg mb-8" name="userId">
                 <option selected>请选择负责人</option>
-                <option value="1">张三</option>
-                <option value="2">李四</option>
-                <option value="3">王五</option>
+                {volist name="project->Users()->select()" id="user"}
+                <option value="{$user->id}" {eq name="$user->id" value="$task->user_id"} selected {/eq}>{$user->name}</option>
+                {/volist}
             </select>
         </div>
         <div class="form-group">
             <label for="startime">开始时间</label>
-            <input type="date" id="date" name="date">
+            <input type="date" id="date" name="startDate" value="{$task->start_date}">
         </div>
         <div class="form-group">
             <label for="endtime">结束时间</label>
-            <input type="date" id="date" name="date">
+            <input type="date" id="date" name="endDate" value="{$task->end_date}">
         </div>
         <div class="form-group">
             <label for="exampleInputPassword1">状态</label>
             <div class="row">
                 <div class="col-md-1 ">
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="status" id="status0" value="0">
+                        <input class="form-check-input" type="radio" name="status" id="status0" value="0" {eq name="$task->getData('status')" value="0"} checked{/eq}>
                         <label class="form-check-label" for="status">未开始</label>
                     </div>
                 </div>
                 <div class="col-md-1">
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="status" id="status1" value="1">
+                        <input class="form-check-input" type="radio" name="status" id="status1" value="1" {eq name="$task->getData('status')" value="1"} checked {/eq}>
                         <label class="form-check-label" for="status">进行中</label>
                     </div>
                 </div>
                 <div class="col-md-1">
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="status" id="status2" value="2">
+                        <input class="form-check-input" type="radio" name="status" id="status2" value="2" {eq  name="$task->getData('status')" value="2"} checked {/eq}>
                         <label class="form-check-label" for="status">已完成</label>
                     </div>
                 </div>

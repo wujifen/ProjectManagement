@@ -15,18 +15,12 @@
             </tr>
         </thead>
         <tbody>
+            {volist name="details" id="_detail" key="key"}
             <tr>
-                <th scope="row">1</th>
-                <td>张三在xxx时候将认为状态由xx改为xx</td>
+                <th scope="row">{$key}</th>
+                <td>{$_detail->user_id}在xxx时候将认为状态由{$_detail->status_old}改为{$_detail->status_new}</td>
             </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>张三在xxx时候将认为状态由xx改为xx</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>张三在xxx时候将认为状态由xx改为xx</td>
-            </tr>
+            {/volist}
         </tbody>
     </table>
 {/block}

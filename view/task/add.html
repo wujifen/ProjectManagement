@@ -7,27 +7,27 @@
 {/block}
 
 {block name="content"}
-    <form action="Index/index" method="post">
+    <form action="{:url('save?projectid=' . $projectid)}" method="post">
         <div class="form-group">
             <label for="title">标题</label>
-            <input type="text" class="form-control" id="title" aria-describedby="title">
+            <input type="text" class="form-control" id="title" aria-describedby="title" name="name">
         </div>
         <div class="form-group">
             <label for="leaduser">负责人</label>
-            <select class="custom-select custom-select-lg mb-8">
+            <select class="custom-select custom-select-lg mb-8" name="user_id">
                 <option selected>请选择负责人</option>
-                <option value="1">张三</option>
-                <option value="2">李四</option>
-                <option value="3">王五</option>
+                {volist name="project->Users()->select()" id="user"}
+                <option value="{$user->id}">{$user->name}</option>
+                {/volist}
             </select>
         </div>
         <div class="form-group">
             <label for="startime">开始时间</label>
-            <input type="date" id="date" name="date">
+            <input type="date" id="date" name="start_date">
         </div>
         <div class="form-group">
             <label for="endtime">结束时间</label>
-            <input type="date" id="date" name="date">
+            <input type="date" id="date" name="end_date">
         </div>
         <div class="form-group">
             <label for="exampleInputPassword1">状态</label>

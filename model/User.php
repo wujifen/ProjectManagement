@@ -2,6 +2,7 @@
 namespace app\project\model;
 use think\Model; 
 use think\Db;
+use think\Request;
 
 /**
  * 用户类
@@ -58,6 +59,37 @@ class User extends Model
             }
         }
         return false;
+    }
+
+    /**
+     * 列表的查询
+     * */
+    static public function indexlist()
+    {
+        // 获取查询信息
+        $name = Request::instance()->get('name');
+        $username = Request::instance()->get('username');
+
+        // 设置每页大小
+        $pageSize = 5;
+
+        // 实例化User
+        $user = new User();
+
+        // 定制查询信息
+        if (!empty($name)) {
+            $user->where('name','like','%' . $name . '%');
+        }
+
+        if (!empty($username)) {
+            $user->where('username', 'like', '%' . $username . '%');
+        }
+
+        // 条件查询并调用分页
+        $users = $user->paginate($pageSize, false, ['query'=> ['name' =>$name,'username' => $username]]);
+
+        // 反馈结果
+        return $users; 
     }
 
     static public function isLogin()
