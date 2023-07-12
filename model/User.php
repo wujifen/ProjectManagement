@@ -114,9 +114,14 @@ class User extends Model
         return $result;
     }
 
-    // 与项目的多对多关联
+    
+    public function projectusers() 
+    {
+        return $this->hasMany('ProjectUser');
+    }
+
     public function projects()
     {
-        return $this->belongsToMany('Project');
+        return $this->hasMany('Project');
     }
 }

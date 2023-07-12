@@ -22,22 +22,6 @@ class Project extends Model
     }
 
     /**
-    * 多对多关联
-    * */
-    public function users()
-    {
-        return $this->belongsToMany('User');
-    }
-
-    /**
-     * 一对多关联查询  这里用于输出项目的创建人
-     * */
-    public function user()
-    {
-        return $this->belongsTo('User');
-    }
-
-    /**
      * 判断用户是否加入了该项目
      * */
     public function getIsJoin(User &$user)
@@ -64,11 +48,17 @@ class Project extends Model
         return $this->hasMany('Task');
     }
 
-    /**
-    * 多对多关联
-    * */
-    public function projectusers()
+    
+    public function projectUsers() 
     {
-        return $this->belongsTo('ProjectUser');
+        return $this->hasMany('ProjectUser', 'project_id');
+    }
+
+    /**
+     * 一对多关联查询  这里用于输出项目的创建人
+     * */
+    public function user()
+    {
+        return $this->belongsTo('User');
     }
 }
