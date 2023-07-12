@@ -27,7 +27,7 @@ class ProjectController extends BaseController
             $project = Project::get($projectId);
             $array[] = $project;
         }
-       
+
         // 向V层传值
         $this->assign('projects', $array);
         
@@ -89,7 +89,7 @@ class ProjectController extends BaseController
     public function invite()
     {
         $project = Project::get(Request::instance()->param('id/d'));
-        $users = User::indexlist();
+        $users = UserService::indexlist();
 
         // 向V层传数据
         $this->assign('project', $project);
@@ -110,7 +110,7 @@ class ProjectController extends BaseController
         }
 
         $projectUser = new ProjectUser();
-        if (!$projectUser->tojoin($projectId, $userId)) {
+        if (!$projectUser->saveToJoin($projectId, $userId)) {
             return $this->error('邀请失败', url('invite'));
         }
         return $this->success('邀请成功', url('project/index'));

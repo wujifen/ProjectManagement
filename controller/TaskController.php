@@ -20,6 +20,12 @@ class TaskController extends BaseController
         }
         $project = Project::get($projectId);
 
+        $userIds = $project->projectUsers()->column('user_id');
+        foreach ($userIds as $key => $value) {
+            $users[] = User::get($value);
+        }
+
+        $this->assign('users',$users);
         $this->assign('project', $project);
 
         return $this->fetch();
@@ -29,10 +35,16 @@ class TaskController extends BaseController
     {
         // 获取项目id信息
         $projectId = Request::instance()->param('projectId/d');
+        $project = Project::get($projectId);
+
         if (is_null($projectId)) {
             return $this->error('未获取到项目Id', url('task/index'));
         }
-        $project = Project::get($projectId);
+       
+        $userIds = $project->projectUsers()->column('user_id');
+        foreach ($userIds as $key => $value) {
+            $users[] = User::get($value);
+        }
 
         // 获取任务的Id
         $taskId = Request::instance()->param('taskId/d');
@@ -42,6 +54,7 @@ class TaskController extends BaseController
         $task = Task::get($taskId);
 
         $this->assign('task', $task);
+        $this->assign('users',$users);
         $this->assign('project', $project);
 
         return $this->fetch();

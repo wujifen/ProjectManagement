@@ -17,8 +17,8 @@
             <label for="leaduser">负责人</label>
             <select class="custom-select custom-select-lg mb-8" name="userId">
                 <option selected value="">请选择负责人</option>
-                {volist name="project->projectusers()->where('project_id', $project->id)->select()" id="user"}
-                <option value="{$user->user_id}">{$user->user_id}</option>
+                {volist name="users" id="_user"}
+                <option value="{$_user->id}">{$_user->name}</option>
                 {/volist}
             </select>
         </div>
