@@ -15,18 +15,12 @@
             </tr>
         </thead>
         <tbody>
+            {volist name="details" id="_detail" key="key"}
             <tr>
-                <th scope="row">1</th>
-                <td>张三在xxx时候将认为状态由xx改为xx</td>
+                <th scope="row">{$key}</th>
+                <td>{$_detail->user->name}在{$_detail->time}时候将任务状态由<span>{$_detail->getStatusAttr($_detail->status_old)}</span>改为<span>{$_detail->getStatusAttr($_detail->status_new)}</span></td>
             </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>张三在xxx时候将认为状态由xx改为xx</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>张三在xxx时候将认为状态由xx改为xx</td>
-            </tr>
+            {/volist}
         </tbody>
     </table>
 {/block}

@@ -7,8 +7,8 @@
 {/block}
 
 {block name="content"}
-    <form>
-        <input class="form-control" type="text" placeholder="please input here...">
+    <form action="{:url('saveEvent?projectId=' . $projectId)}">
+        <input class="form-control" type="text" placeholder="please input here..." name="event">
         <button type="submit" class="btn btn-primary mb-2">提交</button>
     </form>
 {/block}

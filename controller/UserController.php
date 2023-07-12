@@ -3,6 +3,7 @@ namespace app\project\controller;
 use app\project\model\User;
 use think\Request;
 use think\Validate;
+use app\project\service\UserService;
 
 /**
  *用户类 
@@ -15,6 +16,7 @@ class UserController extends BaseController
      * */
     public function add()
     {
+        // 实例化User对象并赋值
         $user = new User();
         $user->id = 0;
         $user->name = '';
@@ -36,15 +38,15 @@ class UserController extends BaseController
         $user->name = input('post.name');
         $user->username = input('post.username');
         $user->password = input('post.password');
-        $user->sex = input('post.sex');
+        $user->sex = input('post.sex/d');
 
         // 新增对象至数据表
         if (!$user->validate()->save()) {
-            return $this->error('添加失败' . $user->getError(), url('index'));
+            return $this->error('添加失败' . $user->getError(), url('login/index'));
         }
 
         // 反馈结果
-        return $this->success('添加成功', url('index'));
+        return $this->success('添加成功', url('login/index'));
     }
 
     /**
@@ -82,13 +84,13 @@ class UserController extends BaseController
         $id = input('post.id/d');
 
         if (is_null($id)) {
-            return $this->error('更新失败，未找到I为：' . $id . '的用户');
+            return $this->error('更新失败,未获取到Id信息');
         }
 
         // 获取要更新的对象
         $user = User::get($id);
         if (is_null($user)) {
-            return $this->error('更新失败，用户不存在');
+            return $this->error('更新失败，未找到Id为：' . $id . '的用户');
         }
 
         // 写入新的数据
@@ -127,7 +129,7 @@ class UserController extends BaseController
         if (!$user->validate()->delete()) {
             return $this->error('删除失败' . $user->getError(), url('index'));
         }
-        return $this->success('删除成功', url('index'));
+        return $this->success('删除成功', url('login/index'));
     }
 
     /**
@@ -135,27 +137,7 @@ class UserController extends BaseController
      * */
     public function index()
     {
-        // 获取查询信息
-        $name = Request::instance()->get('name');
-        $username = Request::instance()->get('username');
-
-        // 设置每页大小
-        $pageSize = 5;
-
-        // 实例化User
-        $user = new User();
-
-        // 定制查询信息
-        if (!empty($name)) {
-            $user->where('name','like','%' . $name . '%');
-        }
-
-        if (!empty($username)) {
-            $user->where('username', 'like', '%' . $username . '%');
-        }
-
-        // 条件查询并调用分页
-        $users = $user->paginate($pageSize, false, ['query'=> ['name' =>$name,'username' => $username]]);
+        $users = UserService::indexlist();
 
         $userId = session('userId');
 
@@ -164,41 +146,6 @@ class UserController extends BaseController
         $this->assign('users', $users);
 
         // 将数据返还给用户
-        return $this->fetch();
-    }
-
-    /**
-     * 邀请用户参入私有项目
-     * */
-    public function invite()
-    {
-        // 获取查询信息
-        $name = Request::instance()->get('name');
-        $username = Request::instance()->get('username');
-
-        // 设置每页大小
-        $pageSize = 5;
-
-        // 实例化User
-        $user = new User();
-
-        // 定制查询信息
-        if (!empty($name)) {
-            $user->where('name','like','%' . $name . '%');
-        }
-
-        if (!empty($username)) {
-            $user->where('username', 'like', '%' . $username . '%');
-        }
-
-        // 条件查询并调用分页
-        $users = $user->paginate($pageSize, false, ['query'=> ['name' =>$name,'username' => $username]]);
-
-        $userId = session('userId');
-
-        // 向V层传数据
-        $this->assign('userId', $userId);
-        $this->assign('users', $users);
         return $this->fetch();
     }
 

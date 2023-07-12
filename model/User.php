@@ -2,17 +2,14 @@
 namespace app\project\model;
 use think\Model; 
 use think\Db;
+use think\Request;
+use app\project\service\UserService;
 
 /**
  * 用户类
  * */
 class User extends Model
 {
-    public function creators()
-    {
-        return $this->hasMany('Project')->field('creator_id');
-    }
-
     /**
      * 设置获取器获取用户性别
      * 0男 1女
@@ -62,8 +59,8 @@ class User extends Model
 
     static public function isLogin()
     {
-        $id = session('userId');
-        if (isset($id)) {
+        $currentUserId = UserService::getCurrentUserId();
+        if (isset($currentUserId)) {
             return true;
         }
         return false;
@@ -117,4 +114,9 @@ class User extends Model
         return $result;
     }
 
+    // 与项目的多对多关联
+    public function projects()
+    {
+        return $this->belongsToMany('Project');
+    }
 }
