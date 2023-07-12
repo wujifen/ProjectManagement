@@ -47,6 +47,9 @@ class TaskController extends BaseController
         return $this->fetch();
     }
 
+    /**
+     * 添加事件
+     * */
     public function event()
     {
         // 获取项目的Id
@@ -60,6 +63,9 @@ class TaskController extends BaseController
         return $this->fetch();
     }
 
+    /**
+     * 查看详情，状态的更改情况
+     * */
     public function detail()
     {
         $taskId = Request::instance()->param('taskId/d');
