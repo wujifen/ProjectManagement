@@ -1,7 +1,6 @@
 <?php 
 namespace app\project\model;
 use think\Model;
-use think\Db;
 
 /**
 * 项目类
@@ -25,7 +24,7 @@ class Project extends Model
     /**
     * 多对多关联
     * */
-    public function Users()
+    public function users()
     {
         return $this->belongsToMany('User');
     }
@@ -33,7 +32,7 @@ class Project extends Model
     /**
      * 一对多关联查询  这里用于输出项目的创建人
      * */
-    public function User()
+    public function user()
     {
         return $this->belongsTo('User');
     }
@@ -63,5 +62,13 @@ class Project extends Model
     public function tasks()
     {
         return $this->hasMany('Task');
+    }
+
+    /**
+    * 多对多关联
+    * */
+    public function projectusers()
+    {
+        return $this->belongsTo('ProjectUser');
     }
 }

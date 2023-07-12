@@ -4,6 +4,7 @@ use app\project\model\Project;
 use app\project\model\ProjectUser;
 use app\project\model\User;
 use think\Request;
+use app\project\service\UserService;
 
 /**
  * 项目类
@@ -13,11 +14,12 @@ class ProjectController extends BaseController
     public function index()
     {  
         // 获取当前登录用户的Id
-        $id = session('userId');
-        $this->assign('user', User::get($id));
+        $currentUserId = UserService::getCurrentUserId();
+        $currenUser = User::get($currentUserId);
+        $this->assign('currenUser', $currenUser);
 
         // 查询出当前登录用户可见的项目Id
-        $projectIds = User::query($id);
+        $projectIds = User::query($currentUserId);
 
         $array = array();
         foreach ($projectIds as $value) {
@@ -38,7 +40,7 @@ class ProjectController extends BaseController
         return $this->fetch();
     }
 
-    public function tojoin()
+    public function toJoin()
     {
         // 获取项目的id
         $projectId = Request::instance()->param('id/d');
@@ -47,17 +49,13 @@ class ProjectController extends BaseController
             return $this->error('未获取到项目Id', url('index'));
         }
         // 获取用户ID
-        $userId = session('userId');
-        if (is_null($userId)) {
-            return $this->error('未获取到用户Id', url('index'));
-        }
-        if (false === ProjectUser::tojoin($projectId, $userId)) {
+        $currentUserId = UserService::getCurrentUserId();
+        
+        if (false === ProjectUser::saveToJoin($projectId, $currentUserId)) {
             return $this->error('加入失败', url('index'));
         }
-        return $this->success('加入成功', url('task/index'));
+        return $this->success('加入成功', url('index'));
     }
-       
-
 
     /**
      * 保存新增加的项目

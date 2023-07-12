@@ -18,7 +18,7 @@
             {volist name="details" id="_detail" key="key"}
             <tr>
                 <th scope="row">{$key}</th>
-                <td>{$_detail->user_id}在xxx时候将认为状态由{$_detail->status_old}改为{$_detail->status_new}</td>
+                <td>{$_detail->user->name}在{$_detail->create_time}时候将任务状态由<span>{$_detail->getStatusAttr($_detail->status_old)}</span>改为<span>{$_detail->getStatusAttr($_detail->status_new)}</span></td>
             </tr>
             {/volist}
         </tbody>

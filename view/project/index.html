@@ -26,17 +26,17 @@
                         <tr>
                             <th scope="row">{$key}</th>
                             <td>{$_project->name}</td>
-                            <td>{$_project->User->name}</td>
+                            <td>{$_project->user->name}</td>
                             <td>{$_project->type}</td>
                             <td>
                                 {if $_project->getData('type') === 0}
-                                    {if $_project->getIsJoin($user) || $_project->user_id === $user->id}
+                                    {if $_project->getIsJoin($currenUser) || $_project->user_id === $currenUser->id}
                                         <a class="btn btn-sm btn-info" href="{:url('Task/index?id=' . $_project->id)}">&nbsp;查看</a>
                                     {else}
                                         <a class="btn btn-sm btn-success" href="{:url('tojoin?id=' . $_project->id)}">&nbsp;申请加入</a>
                                    {/if}
                                 {else $_project->getData('type') === 1}
-                                    {eq name="$_project->user_id" value="$user->id"}
+                                    {eq name="$_project->user_id" value="$currenUser->id"}
                                         <a class="btn btn-sm btn-info" href="{:url('Task/index?id=' . $_project->id)}">&nbsp;查看</a>
                                         <a href="{:url('invite?id=' . $_project->id)}" class="btn btn-info">&nbsp;邀请他人</a>
                                     {else /}
@@ -48,14 +48,6 @@
                     {/volist}
                 </tbody>
             </table>
-        </div>
-    </div>
-{/block}
-
-{block name='page'}
-    <div class="row">
-        <div class="col-md-12 text-center">
-            
         </div>
     </div>
 {/block}
