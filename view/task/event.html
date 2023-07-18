@@ -7,8 +7,17 @@
 {/block}
 
 {block name="content"}
-    <form action="{:url('saveEvent?projectId=' . $projectId)}">
-        <input class="form-control" type="text" placeholder="please input here..." name="event">
-        <button type="submit" class="btn btn-primary mb-2">提交</button>
+    <form action="{:url('saveEvent?projectId=' . $projectId . '?taskId=' . $taskId)}" method="post">
+        <div class="row">
+            <div class="col-md-4">
+                <label for="validationTextarea">文本区域:</label>
+                <textarea class="form-control is-invalid" id="event" name="event" placeholder="请输入一个事件..." required></textarea>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 10px">
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-primary mb-2">提交</button>
+            </div>
+        </div>
     </form>
 {/block}

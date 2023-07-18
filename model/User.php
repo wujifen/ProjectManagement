@@ -106,14 +106,25 @@ class User extends Model
      * */
     static public function query($id)
     {
-        $query ="select p.id from yunzhi_project_user pu join yunzhi_user u on pu.user_id = u.id JOIN yunzhi_project p on p.id = pu.project_id where u.id =$id and p.type = 1 
-            UNION
-            select p.id from yunzhi_project p WHERE $id = p.user_id or p.type = 0";
+        $query ="SELECT sub.id
+                FROM (
+                  SELECT p.id
+                  FROM yunzhi_project_user AS pu
+                  JOIN yunzhi_user AS u ON pu.user_id = u.id
+                  JOIN yunzhi_project AS p ON p.id = pu.project_id
+                  WHERE u.id = $id AND p.type = 1
+
+                  UNION
+
+                  SELECT p.id
+                  FROM yunzhi_project AS p
+                  WHERE $id = p.user_id OR p.type = 0
+                ) AS sub
+                ORDER BY sub.id desc";
 
         $result = Db::query($query);
         return $result;
     }
-
     
     public function projectusers() 
     {

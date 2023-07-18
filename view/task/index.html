@@ -12,8 +12,14 @@
                     <input name="title" type="text" class="form-control" placeholder="标题..." value="{:input('title')}">
                 </div>
                 <div class="form-group">
-                    <label class="sr-only" for="status">状态</label>
-                    <input name="status" type="text" class="form-control" placeholder="状态..." value="{:input('status')}">
+                    
+                    <select class="custom-select custom-select-lg mb-8" name="status">
+                        <option value="">请选择任务状态</option>
+                        <option value="0" {eq name="$status" value="0" } selected {/eq}>未开始</option>
+                        <option value="1" {eq name="$status" value="1" } selected {/eq}>进行中</option>
+                        <option value="2" {eq name="$status" value="2" } selected {/eq}>已完成</option>
+                    </select>
+
                 </div>
                 <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i>&nbsp;查询</button>
             </form>

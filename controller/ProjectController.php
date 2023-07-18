@@ -80,6 +80,13 @@ class ProjectController extends BaseController
             return $this->error('新建项目失败' . $this->getError(), url('index'));
         }
 
+        // 保存到project_user表
+        $projectUser = new ProjectUser();
+        $projectUser->user_id = UserService::getCurrentUserId();
+        $projectUser->project_id = $project->id;
+        if (!$projectUser->validate()->save()) {
+            return $this->error('新建项目失败' . $this->getError(), url('index'));
+        }
         return $this->success('新建项目成功', url('index'));
     }
 

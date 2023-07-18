@@ -7,7 +7,9 @@
 {/block}
 
 {block name="content"}
-    <table class="table">
+<div class="row">
+    <div class="col-md-8">
+        <table class="table">
         <thead>
             <tr>
                 <th scope="col">序号</th>
@@ -15,12 +17,22 @@
             </tr>
         </thead>
         <tbody>
+            {volist name="events" id="_event" key="key"}
+            <tr>
+                <th scope="row">{$key}</th>
+                <td><B>{$_event->user->name}</B>在{$_event->time}时候添加事件<b>{$_event->event}</b></td>
+            </tr>
+            {/volist}
+
             {volist name="details" id="_detail" key="key"}
             <tr>
                 <th scope="row">{$key}</th>
-                <td>{$_detail->user->name}在{$_detail->time}时候将任务状态由<span>{$_detail->getStatusAttr($_detail->status_old)}</span>改为<span>{$_detail->getStatusAttr($_detail->status_new)}</span></td>
+                <td><B>{$_detail->user->name}</B>在{$_detail->time}时候将任务状态由<b>{$_detail->getStatusAttr($_detail->status_old)}</b>改为<b>{$_detail->getStatusAttr($_detail->status_new)}</b></td>
             </tr>
             {/volist}
         </tbody>
-    </table>
+        </table>
+    </div>
+</div>
+    
 {/block}

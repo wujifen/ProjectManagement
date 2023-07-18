@@ -2,17 +2,27 @@
 {block name='title'}用户列表{/block}
 
 {block name='search'}
-    <form class="form-inline" method="get">
-        <div class="form-group">
-            <label class="sr-only" for="name">姓名</label>
-            <input name="name" type="text" class="form-control" placeholder="姓名..." value="{:input('name')}">
-        </div>
-        <div class="form-group">
-            <label class="sr-only" for="username">用户名</label>
-            <input name="username" type="text" class="form-control" placeholder="用户名..." value="{:input('username')}">
-        </div>
-        <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i>&nbsp;查询</button>
-    </form>
+<div class="row">
+    <div class="col-md-8">
+        <form class="form-inline" method="get">
+            <div class="form-group">
+                <label class="sr-only" for="name">姓名</label>
+                <input name="name" type="text" class="form-control" placeholder="姓名..." value="{:input('name')}">
+            </div>
+            <div class="form-group">
+                <label class="sr-only" for="username">用户名</label>
+                <input name="username" type="text" class="form-control" placeholder="用户名..." value="{:input('username')}">
+            </div>
+            <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i>&nbsp;查询</button>
+        </form>
+    </div>
+    {if $adminUser}
+    <div class="col-md-4 text-right">
+        <a href="{:url('add')}" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>&nbsp;新增</a>
+    </div>
+    {/if}
+</div>
+    
 {/block}
 
 {block name='content'}
@@ -35,12 +45,21 @@
                         <td>{$_user->name}</td>
                         <td>{$_user->username}</td>
                         <td>{$_user->sex}</td>
-                        <td>
-                            {eq name="$_user->id" value="$userId"}
-                            <a href="{:url('edit?id=' . $_user->id)}" class="btn btn-primary">&nbsp;编辑</a>
-                            <a href="{:url('reset?id=' . $_user->id)}" class="btn btn-info">&nbsp;重置密码</a>
-                            <a href="{:url('delete?id=' . $_user->id)}" class="btn btn-danger">&nbsp;删除</a>
-                            {else /}{/eq}
+                        <td>{if $adminUser}
+                                {eq name="$_user->id" value="$userId"}
+                                <a href="{:url('edit?id=' . $_user->id)}" class="btn btn-primary">&nbsp;编辑</a>
+                                <a href="{:url('reset?id=' . $_user->id)}" class="btn btn-info">&nbsp;重置密码</a>
+                                {else /}
+                                <a href="{:url('edit?id=' . $_user->id)}" class="btn btn-primary">&nbsp;编辑</a>
+                                <a href="{:url('reset?id=' . $_user->id)}" class="btn btn-info">&nbsp;重置密码</a>
+                                <a href="{:url('delete?id=' . $_user->id)}" class="btn btn-danger" >&nbsp;删除</a>
+                                {/eq}
+                            {else }
+                                {if $_user->id === $userId}
+                                <a href="{:url('edit?id=' . $_user->id)}" class="btn btn-primary">&nbsp;编辑</a>
+                                <a href="{:url('reset?id=' . $_user->id)}" class="btn btn-info">&nbsp;重置密码</a>
+                                {/if}
+                            {/if}
                         </td>
                     </tr>
                     {/volist}
@@ -49,7 +68,13 @@
         </div>
     </div>
 {/block}
-
+{block name="remind"}
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();   
+});
+</script>
+{/block}
 {block name='page'}
     <div class="row">
         <div class="col-md-12 text-center">
